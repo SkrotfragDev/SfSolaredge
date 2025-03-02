@@ -2,6 +2,7 @@
 using SolarEdge.Service.Services;
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -20,33 +21,35 @@ namespace SolarEdge.Console
                 SiteId = "4110825"
             });
 
-            //await GetSiteOverviewAsync();
-            //await GetSiteDetailsAsync();
-            //await GetSitePowerAsync();
-            //await GetSiteEnergyAsync();
-            //await GetSiteDataPeriodAsync();
-            //await GetSiteListAsync();
-            //await GetSitePowerDetailsAsync();
-            //await GetSiteEnergyDetailsAsync();
-            //await GetSitePowerFlowAsync();
-            //await GetStorageInformationAsync();
-            //await GetSiteEnvironmentalBenefitsAsync();
-            //await GetEquipmentsListAsync();
-            //await GetInvertoryAsync();
+            //    await GetSiteOverviewAsync();
+            await GetSiteDetailsAsync();
+            //      await GetSitePowerAsync();
+            await GetSiteEnergyAsync();
+            await GetSiteDataPeriodAsync();
+            await GetSiteListAsync();
+            await GetSitePowerDetailsAsync();
+            await GetSiteEnergyDetailsAsync();
+            await GetSitePowerFlowAsync();
+            await GetStorageInformationAsync();
+            await GetSiteEnvironmentalBenefitsAsync();
+            await GetEquipmentsListAsync();
+            await GetInvertoryAsync();
             await GetMetersDataAsync();
 
         }
 
         public static async Task GetSiteDetailsAsync()
         {
+        //  MethodInfo method = typeof(SolarEdgeService).GetMethod("GetSiteDetailsAsync", BindingFlags.NonPublic | BindingFlags.Instance);
+            
             var result = await _solarEdgeService.GetSiteDetailsAsync();
 
             var json = JsonSerializer.Serialize(result, new JsonSerializerOptions
             {
                 WriteIndented = true
             });
-
-            Debugger.Break();
+            
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetSiteListAsync()
@@ -58,7 +61,7 @@ namespace SolarEdge.Console
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetSiteDataPeriodAsync()
@@ -70,19 +73,19 @@ namespace SolarEdge.Console
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetSiteEnergyAsync()
         {
-            var result = await _solarEdgeService.GetSiteEnergyAsync(new DateTime(2025,2,24), new DateTime(2025, 2, 27));
+            var result = await _solarEdgeService.GetSiteEnergyAsync(new DateTime(2025, 2, 24), new DateTime(2025, 2, 27));
 
             var json = JsonSerializer.Serialize(result, new JsonSerializerOptions
             {
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetSitePowerDetailsAsync()
@@ -94,7 +97,7 @@ namespace SolarEdge.Console
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetSiteEnergyDetailsAsync()
@@ -106,7 +109,7 @@ namespace SolarEdge.Console
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetSitePowerFlowAsync()
@@ -118,7 +121,7 @@ namespace SolarEdge.Console
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetStorageInformationAsync()
@@ -130,7 +133,7 @@ namespace SolarEdge.Console
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetSiteEnvironmentalBenefitsAsync()
@@ -142,7 +145,7 @@ namespace SolarEdge.Console
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetEquipmentsListAsync()
@@ -154,7 +157,7 @@ namespace SolarEdge.Console
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetInvertoryAsync()
@@ -166,19 +169,20 @@ namespace SolarEdge.Console
                 WriteIndented = true
             });
 
-            Debugger.Break();
+            /* Debugger.Break(); */ System.Console.WriteLine(json);
         }
 
         public static async Task GetMetersDataAsync()
         {
-            var result = await _solarEdgeService.GetMetersDataAsync(new DateTime(2025, 2, 24), new DateTime(2025, 2, 27));
+            var result = await _solarEdgeService.GetMetersDataAsync(new DateTime(2025, 2, 01), new DateTime(2025, 2, 27));
 
             var json = JsonSerializer.Serialize(result, new JsonSerializerOptions
             {
                 WriteIndented = true
             });
-
-            Debugger.Break();
+            MethodInfo method = typeof(SolarEdgeService).GetMethod("GetMetersDataAsync", BindingFlags.NonPublic | BindingFlags.Instance);
+            /* Debugger.Break(); */
+            System.Console.WriteLine(json);
         }
     }
 }
