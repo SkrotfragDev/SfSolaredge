@@ -128,6 +128,69 @@ namespace SolarEdge.Console
             {
                 WriteIndented = false
             });
+            using (var doc = JsonDocument.Parse(json))
+            {
+                JsonElement root = doc.RootElement;
+
+                if (root.TryGetProperty("energyDetails", out JsonElement meterEnergyDetailsElement))
+                {
+                    if (meterEnergyDetailsElement.TryGetProperty("meters", out JsonElement metersElement))
+                    {
+                        foreach (JsonElement meter in metersElement.EnumerateArray())
+                        {
+                            if (meter.TryGetProperty("production", out JsonElement productionElement))
+                            {
+                                var y = meter.EnumerateObject();                                string productionValue = productionElement.GetString();
+                                System.Console.WriteLine($"Production: {productionValue}");
+                            }
+                        }
+                    }
+                }
+                var enumerator = root.EnumerateObject();
+                while (enumerator.MoveNext())
+                {
+                    var x = enumerator.Current.Value;
+                    //x[0]
+                    //while (x.MoveNext())
+                    //{
+
+                    //}
+                    //Console.WriteLine($"You are now at array element {enumerator.Current}");
+
+                    //var elementContentEnumerator = enumerator.Current();
+                    //while (elementContentEnumerator.MoveNext())
+                    //{
+                    //    //      Console.WriteLine($"You are now at property {elementContentEnumerator.Current.Name}");
+                    //}
+
+                }
+
+                //Console.ReadLine();
+                if (root.TryGetProperty("details", out JsonElement weightElement))
+                {
+                    string weightStr = weightElement.GetString()?.Trim() ?? "0.00";
+                    //weightStr = weightStr.Replace(" ", "");
+                    //weightStr = weightStr.Replace(".", ",");
+                    //if (decimal.TryParse(weightStr, out decimal weightTonne))
+                    //{
+                    //    //    JsonElement unitElement;
+                    //    root.TryGetProperty("unit", out JsonElement unitElement);
+                    //    string unit = unitElement.GetString()?.Trim() ?? "kg";
+
+                    //    decimal weightKg = 0;
+                    //    if (unit.ToLower() == "t")
+                    //        weightKg = weightTonne * 1000; // Convert tonne to kg
+                    //    else
+                    //        weightKg = weightTonne;
+                    //    LastWeight = weightKg.ToString("F0");
+                    //}
+                    //else
+                    //{
+                    //    LastWeight = "0.00";
+                    //}
+
+                }
+            }
             using (SqlConnection conn = new SqlConnection(_cn))
             {
                 conn.Open();
